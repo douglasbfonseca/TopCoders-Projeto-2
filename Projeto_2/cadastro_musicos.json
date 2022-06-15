@@ -1,0 +1,37 @@
+[
+    {
+        "nome": "douglas",
+        "email": "douglas1@safra.com",
+        "genero": [
+            "rock"
+        ],
+        "instrumento": [
+            "baixo",
+            "guitarra"
+        ]
+    },
+    {
+        "nome": "douglas2",
+        "email": "doglas2@safra.com",
+        "genero": [
+            "rock"
+        ],
+        "instrumento": [
+            "viol\u00e3o"
+        ]
+    },
+    {
+        "nome": "rafael",
+        "email": "rafael@lets.com",
+        "genero": [
+            "reggae",
+            "rock",
+            "proximo"
+        ],
+        "instrumento": [
+            "guitarra",
+            "bateria",
+            "proximo"
+        ]
+    }
+]
