@@ -33,5 +33,17 @@
             "bateria",
             "proximo"
         ]
+    },
+    {
+        "nome": "bruno12",
+        "email": "bruno@safra.com",
+        "genero": [],
+        "instrumento": []
+    },
+    {
+        "nome": "bruno13",
+        "email": "bruno13@lets.com",
+        "genero": [],
+        "instrumento": []
     }
 ]
