@@ -15,12 +15,18 @@
 #         raise Exception
 # if not (soma == 1):
 #     raise Exception
+
 dic1 = {"a":"aa"}
 dic2 = {"a":"ab"}
-dic3 = {"a":"abc"}
+dic3 = {"a":"aa"}
 
 lista = [dic1, dic2, dic3]
+print(lista.)
 
-for dic in lista:
-    if "abc" in dic.values():
-        print("entrou")
+# for dic in lista:
+#     if "abc" in dic.values():
+#         print("entrou")
+
+# nome = ('email', 'soug@safra')
+# nome = nome[1]
+# print(nome)

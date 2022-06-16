@@ -45,5 +45,19 @@
         "email": "bruno13@lets.com",
         "genero": [],
         "instrumento": []
+    },
+    {
+        "nome": "marcos",
+        "email": "marcos@lets.com",
+        "genero": [
+            "rock",
+            "jazz",
+            "reggae"
+        ],
+        "instrumento": [
+            "baixo",
+            "guitarra",
+            "viol\u00e3o"
+        ]
     }
 ]
