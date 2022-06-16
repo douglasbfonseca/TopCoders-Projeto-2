@@ -59,5 +59,33 @@
             "guitarra",
             "viol\u00e3o"
         ]
+    },
+    {
+        "nome": "kaye",
+        "email": "kaye@lets.com",
+        "genero": [
+            "rock",
+            "slowcore",
+            "hardcore",
+            "noise"
+        ],
+        "instrumento": [
+            "voz",
+            "guitarra",
+            "bateria"
+        ]
+    },
+    {
+        "nome": "gabriel",
+        "email": "gabriel@safra.com",
+        "genero": [
+            "slowcore",
+            "rock",
+            "cl\u00e1ssico"
+        ],
+        "instrumento": [
+            "bateria",
+            "voz"
+        ]
     }
 ]

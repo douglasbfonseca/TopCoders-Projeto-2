@@ -17,16 +17,13 @@
 #     raise Exception
 
 dic1 = {"a":"aa"}
-dic2 = {"a":"ab"}
-dic3 = {"a":"aa"}
+dic2 = {"b":"ab"}
+dic3 = {"c":"aa"}
 
-lista = [dic1, dic2, dic3]
-print(lista.)
-
-# for dic in lista:
-#     if "abc" in dic.values():
-#         print("entrou")
-
-# nome = ('email', 'soug@safra')
-# nome = nome[1]
-# print(nome)
+dict_vazio = {}
+dict_vazio["teste"] = "teste1"
+dict_vazio["teste2"] = "teste12"
+dict_vazio["teste3"] = "teste123"
+print(len(dict_vazio))
+# for i in dict_vazio:
+#     print(i)
