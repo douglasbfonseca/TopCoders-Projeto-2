@@ -18,7 +18,7 @@
 
 dic1 = {"a":"aa"}
 dic2 = {"b":"ab"}
-dic3 = {"c":"aa"}
+dic3 = {"c":[1,2,3,4,5,6]}
 
 dict_vazio = {}
 dict_vazio["teste"] = "teste1"
@@ -27,3 +27,5 @@ dict_vazio["teste3"] = "teste123"
 print(len(dict_vazio))
 # for i in dict_vazio:
 #     print(i)
+dic3["c"].pop(1)
+print(dic3)

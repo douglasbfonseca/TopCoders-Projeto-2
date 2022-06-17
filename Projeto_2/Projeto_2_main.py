@@ -1,6 +1,14 @@
 import json
 from textwrap import indent
 
+def abridor_modo_ler() -> list[dict]:
+    with open("Projeto_2/cadastro_musicos.json", "r", encoding="utf8") as arquivo:
+            cadastro_geral = json.load(arquivo)
+    return cadastro_geral
+def atualizador(cadastro_geral:list[dict])-> None:
+    with open("Projeto_2/cadastro_musicos.json", "w", encoding="utf8") as arquivo:
+         arquivo.write(json.dumps(cadastro_geral, indent=4))
+
 def validador_entrada(musico):
     for caractere in musico['nome']:
         if caractere.isalpha() or caractere.isspace():
@@ -54,8 +62,7 @@ def cadastrar_1_musico() -> dict:
         print("Tente cadastrar o músico novamente.\n")
 def cadastrar_musicos():
     try:
-        with open("Projeto_2/cadastro_musicos.json", "r", encoding="utf8") as arquivo:
-            cadastro_geral = json.load(arquivo)
+        cadastro_geral = abridor_modo_ler()
     except:
         print("Não há cadastro, iremos começar um novo!")
     
@@ -68,11 +75,9 @@ def cadastrar_musicos():
                 raise Exception
         cadastro_geral.append(novo_musico)
 
+    atualizador(cadastro_geral)
 
-    with open("Projeto_2/cadastro_musicos.json", "w", encoding="utf8") as arquivo:
-         arquivo.write(json.dumps(cadastro_geral, indent=4))
-
-def busca_e(dict_busca:dict[tuple]):
+def busca_e(dict_busca:dict[str]) -> list[dict]:
     print(f"\nBusca tipo E para:\n{dict_busca}\n")
 
     try:
@@ -80,6 +85,7 @@ def busca_e(dict_busca:dict[tuple]):
             cadastro_geral = json.load(arquivo)
     except:
         print("Não foi possível abrir o arquivo.")
+        return None
     
     lista_e = []
     for musico in cadastro_geral:
@@ -93,7 +99,7 @@ def busca_e(dict_busca:dict[tuple]):
             lista_e.append(musico)
 
     return lista_e
-def busca_ou(dict_busca:dict[tuple]) -> list[dict]:
+def busca_ou(dict_busca:dict[str]) -> list[dict]:
     print(f"\nBusca tipo OU para:\n{dict_busca}\n")
 
     try:
@@ -101,6 +107,7 @@ def busca_ou(dict_busca:dict[tuple]) -> list[dict]:
             cadastro_geral = json.load(arquivo)
     except:
         print("Não foi possível abrir o arquivo.")
+        return None
 
     lista_ou = []
     lista_de_emails = []
@@ -141,18 +148,58 @@ def coletar_busca_do_usuario() -> dict:
 def buscar_musicos():
     try:
         dict_busca = coletar_busca_do_usuario()
-        tipo_busca = input("\nPara uma busca restrita(tipo E) digite 'e', caso contrário a busca será ampla (tipo OU): ").lower()
-        resultado_busca = busca_e(dict_busca) if tipo_busca == "e" else busca_ou(dict_busca)
     except:
         print("Entrada inválida!")
+    
+    tipo_busca = input("\nPara uma busca restrita(tipo E) digite 'e', caso contrário a busca será ampla (tipo OU): ").lower()
+    resultado_busca = busca_e(dict_busca) if tipo_busca == "e" else busca_ou(dict_busca)
     
     if resultado_busca == [] or resultado_busca == None:
         return print("Não houve resultado para esta busca.")
     else:
         return print(resultado_busca)
 
-def modificar_musicos():
-    ...
+def modificador(email_musico, genero_ou_instrumento, add_ou_remover):
+    try:
+        # with open("Projeto_2/cadastro_musicos.json", "r", encoding="utf8") as arquivo:
+        #     cadastro_geral = json.load(arquivo)
+        cadastro_geral = abridor_modo_ler()
+    except:
+        print("Não foi possível abrir o arquivo.")
+
+    if add_ou_remover == "adicionar":
+        for musico in cadastro_geral:
+            if musico['email'] == email_musico:
+                print(f"\nQual {genero_ou_instrumento} deseja {add_ou_remover}?")
+                print(musico[genero_ou_instrumento])
+                musico[genero_ou_instrumento].append(input())
+                print("adição com sucesso")
+                print(musico[genero_ou_instrumento])
+    else:
+        for musico in cadastro_geral:
+            if musico['email'] == email_musico:
+                print(f"\nQual {genero_ou_instrumento} deseja {add_ou_remover}?")
+                print(musico[genero_ou_instrumento])
+                try:
+                    musico[genero_ou_instrumento].pop(musico[genero_ou_instrumento].index(input()))
+                    print("remoção com sucesso")
+                    print(musico[genero_ou_instrumento])
+                except:
+                    print(f"Não é possível remover este {genero_ou_instrumento} pois ele não está cadastrado!")
+    
+    atualizador(cadastro_geral)
+def modificar_musicos():      
+    email_musico = input("\nDigite o e-mail do músico que deseja modificar:")
+    
+    genero_ou_instrumento = ""
+    while genero_ou_instrumento != "genero" and genero_ou_instrumento != "instrumento":
+        genero_ou_instrumento = input("\nDeseja modificar um gênero ou um instrumento?(GENERO/INSTRUMENTO)").lower()
+    add_ou_remover = ""
+    while add_ou_remover != "adicionar" and add_ou_remover != "remover":
+        add_ou_remover = input(f"\nDeseja adicionar ou remover o {genero_ou_instrumento}?(ADICIONAR/REMOVER)").lower()
+
+    modificador(email_musico, genero_ou_instrumento, add_ou_remover)
+
 def montar_bandas():
     ...
 
