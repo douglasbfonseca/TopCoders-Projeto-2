@@ -1,4 +1,5 @@
 import json
+import re
 from textwrap import indent
 
 def abridor_modo_ler() -> list[dict]:
@@ -200,6 +201,50 @@ def modificar_musicos():
 
     modificador(email_musico, genero_ou_instrumento, add_ou_remover)
 
+def multiplica_lista(numero_instrumentos):
+    multiplicacao = 1
+    for i in numero_instrumentos:
+        multiplicacao *= i
+    return multiplicacao
+def contador_bandas(lista_tuplas,instrumentos_banda):
+    lista_numerica_instr_banda = []
+    for instrumento in instrumentos_banda:
+        soma = 0
+        for tupla in lista_tuplas:
+            if instrumento == tupla[1]:
+                soma +=1
+        lista_numerica_instr_banda.append(soma)
+    return multiplica_lista(lista_numerica_instr_banda)
+
+    ...
+def verificador_bandas(lista_bandas:list[list[tuple]],tupla:tuple)->bool:
+    if lista_bandas == []:
+        return True
+    
+    for banda in lista_bandas:
+        for musico in banda:
+            if musico[0] == tupla[0]:
+                return False
+            elif musico[1] == tupla[1]:
+                return False
+    return True
+    ...
+def iterador_de_bandas(lista_tuplas,instrumentos_banda) -> list[tuple]:
+    
+    verificacao = verificador_bandas
+    numero_max_bandas = contador_bandas(lista_tuplas,instrumentos_banda)
+    lista_bandas = []
+    banda = []
+    
+    for i in range(numero_max_bandas):
+        for tupla in lista_tuplas:
+            if verificacao(lista_bandas,instrumentos_banda):
+                banda.append(tupla)
+            if len(banda) == len(instrumentos_banda):
+                lista_bandas.append(banda)
+                banda = []
+                break
+    return lista_bandas
 def criar_tuplas(aptos_para_banda, instrumentos_banda) -> list[tuple]:
     lista_tuplas_com_repeticao = []
     for lista in aptos_para_banda:
@@ -227,7 +272,8 @@ def montar_bandas():
     instrumentos_banda = [input(f"\nDigite o instrumento de número {i+1}: ") for i in range(tamanho_banda)]
     aptos_para_banda = [busca_e({'genero':genero_banda, 'instrumento':instr}) for instr in instrumentos_banda]
     lista_tuplas = criar_tuplas(aptos_para_banda, instrumentos_banda)
-    print(lista_tuplas)
+    lista_bandas = iterador_de_bandas(lista_tuplas, instrumentos_banda)
+    print(lista_bandas)
 
 def menu():
     opcoes = {

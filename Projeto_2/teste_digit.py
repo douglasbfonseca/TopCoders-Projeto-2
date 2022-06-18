@@ -38,8 +38,17 @@
 
 # print(instrumentos_banda)
 
-# instrumentos_banda = [input(f"\nDigite o instrumento de número {i+1}") for i in range(tamanho_banda)]
-# print(instrumentos_banda)
-lista = []
-lista.append((1,2))
-print(lista)
+# # instrumentos_banda = [input(f"\nDigite o instrumento de número {i+1}") for i in range(tamanho_banda)]
+# # print(instrumentos_banda)
+# lista = []
+# lista.append((1,2))
+# print(lista)
+
+def multiplica_lista(numero_instrumentos):
+    multiplicacao = 1
+    for i in numero_instrumentos:
+        multiplicacao *= i
+    return multiplicacao
+
+lista1 = [1,2,3,4,5]
+print(multiplica_lista(lista1))
