@@ -200,8 +200,32 @@ def modificar_musicos():
 
     modificador(email_musico, genero_ou_instrumento, add_ou_remover)
 
+def criar_tuplas(aptos_para_banda, instrumentos_banda) -> list[tuple]:
+    lista_tuplas_com_repeticao = []
+    for lista in aptos_para_banda:
+        for musico in lista:
+            for instrumento in musico['instrumento']:
+                if instrumento in instrumentos_banda:
+                    lista_tuplas_com_repeticao.append((musico['email'],instrumento))
+    
+    lista_tuplas = []
+    for tupla in lista_tuplas_com_repeticao:
+        if tupla not in lista_tuplas:
+            lista_tuplas.append(tupla)
+    #lista_tuplas = [tupla for tupla in lista_tuplas_com_repeticao if tupla not in lista_tuplas]
+    
+    return lista_tuplas
 def montar_bandas():
-    ...
+    genero_banda = input("\nQual o gênero da sua banda?")
+    try:
+        tamanho_banda = int(input("\nQuantos músicos tocarão na banda?"))
+    except ValueError:
+        return print("Erro, o número de músicos deve ser um inteiro.")
+    
+    instrumentos_banda = [input(f"\nDigite o instrumento de número {i+1}: ") for i in range(tamanho_banda)]
+    aptos_para_banda = [busca_e({'genero':genero_banda, 'instrumento':instr}) for instr in instrumentos_banda]
+    lista_tuplas = criar_tuplas(aptos_para_banda, instrumentos_banda)
+    print(lista_tuplas)
 
 def menu():
     opcoes = {

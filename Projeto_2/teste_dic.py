@@ -19,6 +19,7 @@ def montar_bandas():
     instrumentos_banda = [input(f"\nDigite o instrumento de número {i+1}: ") for i in range(tamanho_banda)]
     aptos_para_banda = [busca_e({'genero':genero_banda, 'instrumento':instr}) for instr in instrumentos_banda]
     lista_tuplas = criar_tuplas(aptos_para_banda)
+    print(lista_tuplas)
 
 
 
