@@ -212,6 +212,8 @@ def criar_tuplas(aptos_para_banda, instrumentos_banda) -> list[tuple]:
     for tupla in lista_tuplas_com_repeticao:
         if tupla not in lista_tuplas:
             lista_tuplas.append(tupla)
+    
+    #Não entendi pq essa list comprehension não funciona??!!
     #lista_tuplas = [tupla for tupla in lista_tuplas_com_repeticao if tupla not in lista_tuplas]
     
     return lista_tuplas
