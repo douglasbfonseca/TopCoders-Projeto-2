@@ -1,54 +1,41 @@
-# from logging import exception
+teste = [('daniel@gmail.com', 'baterista'), ('ana@gmail.com', 'guitarra'), ('daniel@gmail.com', 'vocal'), ('jorge@gmail.com', 'baterista'), ['paula@gmail.com', 'guitarra']]
+instrumentos = ['guitarra','baterista','vocal']
+
+def filtrador(instrumento):
+    def item_filtrador(lista_musicos):
+        return lista_musicos[1] == instrumento
+    return item_filtrador
+
+print(teste)
+print()
+
+musicos = []
+for item in instrumentos:
+    musicos.append(list(filter(filtrador(item),teste)))
+
+print(musicos)
+print()
 
 
-# email = "a aa!"
+def gera_bandas(colecao, banda = [], combinacoes = []):
 
-# soma = 0
-# for caractere in email:
-#     if caractere == "@":
-#         soma += 1
-#         continue
-#     elif caractere.isdigit() or caractere.isalpha() or caractere == "_" or caractere == ".":
-#         pass
-#     else:
-#         print("E-mail deve conter apenas letras, '_', '.', números e exatamente 1 '@'")
-#         raise Exception
-# if not (soma == 1):
-# #     raise Exception
+    instrumento = colecao.pop()
+    for musico in instrumento:
+        if musico in banda:
+            continue
 
-# dic1 = {"a":"aa"}
-# dic2 = {"b":"ab"}
-# dic3 = {"c":[1,2,3,4,5,6]}
+        banda.append(musico)
+        if colecao:
+            combinacoes = gera_bandas(colecao, banda, combinacoes)
+        else:
+            combinacoes.append(banda.copy())
+        banda.pop()
+    colecao.append(instrumento)
+    return combinacoes
 
-# dict_vazio = {}
-# dict_vazio["teste"] = "teste1"
-# dict_vazio["teste2"] = "teste12"
-# dict_vazio["teste3"] = "teste123"
-# print(len(dict_vazio))
-# # for i in dict_vazio:
-# #     print(i)
-# dic3["c"].pop(1)
-# print(dic3)
+combinacoes_banda = gera_bandas(musicos)
 
-# tamanho_banda = 3
-
-# instrumentos_banda = []
-# for i in range(tamanho_banda):
-#     instrumentos_banda.append(input(f"\nDigite o instrumento de número {i+1}"))
-
-# print(instrumentos_banda)
-
-# # instrumentos_banda = [input(f"\nDigite o instrumento de número {i+1}") for i in range(tamanho_banda)]
-# # print(instrumentos_banda)
-# lista = []
-# lista.append((1,2))
-# print(lista)
-
-def multiplica_lista(numero_instrumentos):
-    multiplicacao = 1
-    for i in numero_instrumentos:
-        multiplicacao *= i
-    return multiplicacao
-
-lista1 = [1,2,3,4,5]
-print(multiplica_lista(lista1))
+print(musicos)
+print()
+print(combinacoes_banda)
+        

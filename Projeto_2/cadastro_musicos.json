@@ -11,8 +11,8 @@
         ]
     },
     {
-        "nome": "douglas2",
-        "email": "doglas2@safra.com",
+        "nome": "carlos",
+        "email": "carlos3@safra.com",
         "genero": [
             "rock"
         ],
@@ -35,14 +35,14 @@
         ]
     },
     {
-        "nome": "bruno12",
+        "nome": "bruno",
         "email": "bruno@safra.com",
         "genero": [],
         "instrumento": []
     },
     {
-        "nome": "bruno13",
-        "email": "bruno13@lets.com",
+        "nome": "bruno barros",
+        "email": "bruno_barros@lets.com",
         "genero": [],
         "instrumento": []
     },
