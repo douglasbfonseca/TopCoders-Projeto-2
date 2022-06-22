@@ -3,14 +3,17 @@ import re
 from textwrap import indent
 
 def abridor_modo_ler() -> list[dict]:
+    '''Abre o arquivo no modo leitura e retorna o cadastro geral do programa.'''
     with open("Projeto_2/cadastro_musicos.json", "r", encoding="utf8") as arquivo:
             cadastro_geral = json.load(arquivo)
     return cadastro_geral
 def atualizador(cadastro_geral:list[dict])-> None:
+    '''Recebe o cadastro geral com as alterações feitas pelo programa e reescreve o arquivo.'''
     with open("Projeto_2/cadastro_musicos.json", "w", encoding="utf8") as arquivo:
          arquivo.write(json.dumps(cadastro_geral, indent=4))
 
-def validador_entrada(musico):
+def validador_entrada(musico:dict) -> None:
+    '''Valida o cadastro feito pelo usuário.'''
     for caractere in musico['nome']:
         if caractere.isalpha() or caractere.isspace():
             continue
@@ -32,6 +35,7 @@ def validador_entrada(musico):
         print("O e-mail deve conter exatamente 1 '@'")
         raise Exception
 def cadastrar_1_musico() -> dict:
+    '''Função executora do cadastro.'''
     musico = dict()
     musico['nome']  = input("Insira o nome do músico:").lower()
     musico['email'] = input("Insira o e-mail do músico:").lower()
@@ -62,6 +66,7 @@ def cadastrar_1_musico() -> dict:
     except:
         print("Tente cadastrar o músico novamente.\n")
 def cadastrar_musicos():
+    '''Função principal do cadastro, que irá chamar as função executora e checar a validade do cadastro feito.'''
     try:
         cadastro_geral = abridor_modo_ler()
     except:
@@ -75,10 +80,13 @@ def cadastrar_musicos():
                 print("\nEsse e-mail já está cadastrado, tente novamente.")
                 raise Exception
         cadastro_geral.append(novo_musico)
+        print("\nCadastro realizado com sucesso!\n")
 
     atualizador(cadastro_geral)
 
 def busca_e(dict_busca:dict[str]) -> list[dict]:
+    '''Executa a busca do tipo E.'''
+
     print(f"\nBusca tipo E para:\n{dict_busca}\n")
 
     try:
@@ -101,6 +109,8 @@ def busca_e(dict_busca:dict[str]) -> list[dict]:
 
     return lista_e
 def busca_ou(dict_busca:dict[str]) -> list[dict]:
+    '''Executa a busca do tipo OU.'''
+    
     print(f"\nBusca tipo OU para:\n{dict_busca}\n")
 
     try:
@@ -126,7 +136,9 @@ def busca_ou(dict_busca:dict[str]) -> list[dict]:
                     lista_de_emails.append(musico['email'])
     
     return lista_ou
-def coletar_busca_do_usuario() -> dict:
+def coletar_busca_do_usuario() -> dict[str]:
+    '''Coleta as informações de busca inseridas pelo usuário.'''
+
     opcoes_busca = ['1-nome', '2-email', '3-genero', '4-instrumento']
     
     numero_parametros_busca = int(input("\nDigite quantos parametros deseja usar na busca(1-4):"))
@@ -147,23 +159,24 @@ def coletar_busca_do_usuario() -> dict:
 
     return dict_busca
 def buscar_musicos():
+    '''Principal função de busca, ela chama as funções auxiliares e retorna o resultado para o usuário.'''
+    
     try:
         dict_busca = coletar_busca_do_usuario()
+        tipo_busca = input("\nPara uma busca restrita(tipo E) digite 'E', caso contrário a busca será ampla (tipo OU): ").lower()
+        resultado_busca = busca_e(dict_busca) if tipo_busca == "e" else busca_ou(dict_busca)
     except:
-        print("Entrada inválida!")
-    
-    tipo_busca = input("\nPara uma busca restrita(tipo E) digite 'e', caso contrário a busca será ampla (tipo OU): ").lower()
-    resultado_busca = busca_e(dict_busca) if tipo_busca == "e" else busca_ou(dict_busca)
+        print("Entrada inválida, tente novamente!")
     
     if resultado_busca == [] or resultado_busca == None:
-        return print("Não houve resultado para esta busca.")
+        print("Não houve resultado para esta busca.")
     else:
-        return print(resultado_busca)
+        for musico in resultado_busca:
+            print(musico,"\n")
 
-def modificador(email_musico, genero_ou_instrumento, add_ou_remover):
+def modificador(email_musico:str, genero_ou_instrumento:str, add_ou_remover:str) -> None:
+    '''Função executora da modificação, que recebe as decisões do usuário vinda da função principal.'''
     try:
-        # with open("Projeto_2/cadastro_musicos.json", "r", encoding="utf8") as arquivo:
-        #     cadastro_geral = json.load(arquivo)
         cadastro_geral = abridor_modo_ler()
     except:
         print("Não foi possível abrir o arquivo.")
@@ -176,6 +189,9 @@ def modificador(email_musico, genero_ou_instrumento, add_ou_remover):
                 musico[genero_ou_instrumento].append(input())
                 print("adição com sucesso")
                 print(musico[genero_ou_instrumento])
+                break
+        else:
+            print("Músico não encontrado, verifique se o email está correto.")
     else:
         for musico in cadastro_geral:
             if musico['email'] == email_musico:
@@ -187,9 +203,15 @@ def modificador(email_musico, genero_ou_instrumento, add_ou_remover):
                     print(musico[genero_ou_instrumento])
                 except:
                     print(f"Não é possível remover este {genero_ou_instrumento} pois ele não está cadastrado!")
+                break
+        else:
+            print("Músico não encontrado, verifique se o email está correto.")
     
     atualizador(cadastro_geral)
-def modificar_musicos():      
+def modificar_musicos():
+    '''Função principal da modificação, nela o usuário irá decidir entre: 
+    (gênero ou instrumento) ou  (adicionar ou remover).'''      
+    
     email_musico = input("\nDigite o e-mail do músico que deseja modificar:")
     
     genero_ou_instrumento = ""
@@ -201,13 +223,13 @@ def modificar_musicos():
 
     modificador(email_musico, genero_ou_instrumento, add_ou_remover)
 
-def criador_de_filtros(instrumento):
+def criador_de_filtros(instrumento:str):
     '''Cria funções que irão ajudar na organização dos musicos por instrumento'''
 
-    def item_filtrador(musico_banda):
+    def filtrador(musico_banda):
         return musico_banda[1] == instrumento
-    return item_filtrador
-def filtrar_tuplas(lista_tuplas,instrumentos_banda):
+    return filtrador
+def filtrar_tuplas(lista_tuplas:list[tuple],instrumentos_banda:list[str]) -> list[tuple]:
     '''Filtra as tuplas através do criador de filtros,
     criando uma lista onde os músicos são organizados por instrumento.'''
     
@@ -215,7 +237,7 @@ def filtrar_tuplas(lista_tuplas,instrumentos_banda):
     for instrumento in instrumentos_banda:
         tuplas_filtradas.append(list(filter(criador_de_filtros(instrumento),lista_tuplas)))
     return tuplas_filtradas
-def iterador_de_bandas(tuplas_filtradas, banda = [], lista_bandas = []):
+def iterador_de_bandas(tuplas_filtradas:list[tuple], banda = [], lista_bandas = []) -> list[list[tuple]]:
     '''Itera músico a músico a fim de formar todas a combinações de bandas possíveis,
     respeitando as restrições.'''
 
@@ -238,17 +260,20 @@ def iterador_de_bandas(tuplas_filtradas, banda = [], lista_bandas = []):
         banda.pop()
     tuplas_filtradas.append(instrumento)
     return lista_bandas
-def limpa_repetidos(lista_bandas:list[list]):
-    '''Ordena as bandas por instrumento e remove  possíveis bandas repetidas'''
-    for banda in lista_bandas:
-        banda.sort(key = lambda musico: musico[1])
+def organizar_bandas(lista_bandas:list[list[tuple]]) -> list[list[tuple]]:
+    '''Ordena as bandas por instrumento.'''
     
-    for i in lista_bandas:
-        for j in lista_bandas:
-            if i == j:
-                lista_bandas.remove(j)
+    # for banda in lista_bandas:
+    #     banda.sort(key = lambda musico: musico[1])
+    
+    # for i in lista_bandas:
+    #     for j in lista_bandas:
+    #         if i == j:
+    #             lista_bandas.remove(j)
     return lista_bandas
-def criar_tuplas(aptos_para_banda, instrumentos_banda) -> list[tuple]:
+def criar_tuplas(aptos_para_banda:list[dict], instrumentos_banda:list[str]) -> list[tuple]:
+    '''Cria tuplas (email, instrumento), que são os possíveis membros das bandas.'''
+
     lista_tuplas_com_repeticao = []
     for lista in aptos_para_banda:
         for musico in lista:
@@ -276,11 +301,11 @@ def montar_bandas():
         return print("Erro, o número de músicos deve ser um inteiro.")
     
     instrumentos_banda = [input(f"\nDigite o instrumento de número {i+1}: ") for i in range(tamanho_banda)]
-    aptos_para_banda = [busca_e({'genero':genero_banda, 'instrumento':instr}) for instr in instrumentos_banda]
+    aptos_para_banda = [busca_e({'genero':genero_banda, 'instrumento':instrumento}) for instrumento in instrumentos_banda]
     lista_tuplas = criar_tuplas(aptos_para_banda, instrumentos_banda)
     tuplas_filtradas = filtrar_tuplas(lista_tuplas, instrumentos_banda)
     lista_bandas = iterador_de_bandas(tuplas_filtradas, lista_bandas = [])
-    lista_bandas = limpa_repetidos(lista_bandas)
+    lista_bandas = organizar_bandas(lista_bandas)
     
     if lista_bandas == []:
         print("Não foi possível formar uma banda com este gênero e estes intrumentos. =(")
@@ -292,7 +317,7 @@ def funcao_saida():
 
 def menu():
     '''Principal função do programa, que chama suas funcionalidades.'''
-    
+
     opcoes = {
         "1": cadastrar_musicos,
         "2": buscar_musicos,

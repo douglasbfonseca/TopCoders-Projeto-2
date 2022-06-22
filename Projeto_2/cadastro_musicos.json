@@ -25,8 +25,7 @@
         "email": "rafael@lets.com",
         "genero": [
             "reggae",
-            "rock",
-            "proximo"
+            "rock"
         ],
         "instrumento": [
             "guitarra",
@@ -35,16 +34,25 @@
         ]
     },
     {
-        "nome": "bruno",
-        "email": "bruno@safra.com",
-        "genero": [],
-        "instrumento": []
+        "nome": "bruna",
+        "email": "bruna@safra.com",
+        "genero": [
+            "samba"
+        ],
+        "instrumento": [
+            "voz",
+            "pandeiro"
+        ]
     },
     {
         "nome": "bruno barros",
         "email": "bruno_barros@lets.com",
-        "genero": [],
-        "instrumento": []
+        "genero": [
+            "samba"
+        ],
+        "instrumento": [
+            "cavaquinho"
+        ]
     },
     {
         "nome": "marcos",
@@ -85,6 +93,34 @@
         ],
         "instrumento": [
             "bateria",
+            "voz"
+        ]
+    },
+    {
+        "nome": "felipe",
+        "email": "felipe@lets.com",
+        "genero": [
+            "jazz",
+            "rock",
+            "reggae"
+        ],
+        "instrumento": [
+            "voz",
+            "guitarra"
+        ]
+    },
+    {
+        "nome": "hugo",
+        "email": "hugo.2@safra.com",
+        "genero": [
+            "samba",
+            "jazz",
+            "rock",
+            "reggae"
+        ],
+        "instrumento": [
+            "pandeiro",
+            "guitarra",
             "voz"
         ]
     }
