@@ -263,13 +263,8 @@ def iterador_de_bandas(tuplas_filtradas:list[tuple], banda = [], lista_bandas = 
 def organizar_bandas(lista_bandas:list[list[tuple]]) -> list[list[tuple]]:
     '''Ordena as bandas por instrumento.'''
     
-    # for banda in lista_bandas:
-    #     banda.sort(key = lambda musico: musico[1])
-    
-    # for i in lista_bandas:
-    #     for j in lista_bandas:
-    #         if i == j:
-    #             lista_bandas.remove(j)
+    for banda in lista_bandas:
+        banda.sort(key = lambda musico: musico[1])
     return lista_bandas
 def criar_tuplas(aptos_para_banda:list[dict], instrumentos_banda:list[str]) -> list[tuple]:
     '''Cria tuplas (email, instrumento), que são os possíveis membros das bandas.'''
